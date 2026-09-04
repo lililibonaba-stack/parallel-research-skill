@@ -1,6 +1,7 @@
 # parallel-research
-
-并行网络调研 skill：把一个宽泛的调研问题拆分为多个互不重叠、可独立回答的搜索任务，通过 `grok-search` MCP 服务器的 `search_by_grok` 工具在单条消息中并行执行，最后汇总为去重、附来源链接的中文研究报告。
+ 
+这个skill类似于perplexity 的Deep research ，但是该skill基于grok强大的搜索能力，在部分场景通过gpt强大的推理加上grok强大的搜索能力可以平替甚至优于perplexity 的Deep research的研究表现
+ 
 
 ## 文件位置
 
