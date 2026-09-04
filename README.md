@@ -1,47 +1,46 @@
 # parallel-research
- 
-这个skill类似于perplexity 的Deep research ，但是该skill基于grok强大的搜索能力，在部分场景通过gpt强大的推理加上grok强大的搜索能力可以平替甚至优于perplexity 的Deep research的研究表现
- 
 
-## 文件位置
+This skill is similar to Perplexity's Deep Research, but it is built on grok's powerful search capability. In some scenarios, combining GPT's strong reasoning with grok's powerful search can match or even outperform the research performance of Perplexity's Deep Research.
 
-- Skill 定义：`.agents/skills/parallel-research/SKILL.md`
-- 将该文件按相同路径放入你的项目 `.agents/skills/parallel-research/` 目录即可使用。
+## File Location
 
-## 用途
+- Skill definition: `.agents/skills/parallel-research/SKILL.md`
+- Place the file at the same path in your project's `.agents/skills/parallel-research/` directory to use it.
 
-适用于需要广泛调查某个话题、对比同一问题的多个侧面、或明确要求多路并行搜索的调研任务。产出物是一份简明、有来源支撑的综述，而不是代码改动。
+## Purpose
 
-## 触发条件
+Suitable for research tasks that require broad investigation of a topic, comparison of multiple facets of the same question, or explicitly require multiple parallel searches. The output is a concise, source-backed overview rather than code changes.
 
-- 用户要求广泛调查某个话题。
-- 用户希望对比一个问题的多个方面。
-- 用户明确要求以多次并行搜索的方式进行调研。
+## Trigger Conditions
 
-## 前置条件
+- The user asks to broadly investigate a topic.
+- The user wants to compare multiple aspects of a question.
+- The user explicitly requests research conducted via multiple parallel searches.
 
-使用本 skill 前，需要先安装并配置 [grok-search-mcp](https://github.com/lililibonaba-stack/grok-search-mcp) —— 即提供 `search_by_grok` 工具的 MCP 服务器：
+## Prerequisites
 
-1. 安装 [uv](https://docs.astral.sh/uv/) 并确认其在 PATH 中可用（用 `uv --version` 验证）。
-2. 获取 [cheapapis.net](https://cheapapis.net) 的 API key，创建方式见该仓库的 [get_apikey_tutorial.md](https://github.com/lililibonaba-stack/grok-search-mcp/blob/main/get_apikey_tutorial.md)。
-3. 克隆或下载 grok-search-mcp 仓库，在你的 MCP 客户端中注册名为 `grok-search` 的本地服务器：命令为 `uv run --with fastmcp==4.0.2 --with httpx==0.28.1 python <grok_search.py 的完整路径>`，并在 `environment`/`env` 中设置 `CHEAPAPIS_API_KEY`。Kilo、Claude Desktop、Cursor 的完整配置示例见其 [README](https://github.com/lililibonaba-stack/grok-search-mcp#configuration)。
-4. API key 只放在客户端的 `environment`/`env` 块或系统环境变量中，不要提交到 git。
+Before using this skill, install and configure [grok-search-mcp](https://github.com/lililibonaba-stack/grok-search-mcp) — the MCP server that provides the `search_by_grok` tool:
 
-## 依赖
+1. Install [uv](https://docs.astral.sh/uv/) and confirm it is available in PATH (verify with `uv --version`).
+2. Get an API key from [cheapapis.net](https://cheapapis.net); see the repo's [get_apikey_tutorial.md](https://github.com/lililibonaba-stack/grok-search-mcp/blob/main/get_apikey_tutorial.md) for how to create one.
+3. Clone or download the grok-search-mcp repository, and register a local server named `grok-search` in your MCP client with the command `uv run --with fastmcp==4.0.2 --with httpx==0.28.1 python <full path to grok_search.py>`, setting `CHEAPAPIS_API_KEY` in the `environment`/`env` block. See its [README](https://github.com/lililibonaba-stack/grok-search-mcp#configuration) for full configuration examples for Kilo, Claude Desktop, and Cursor.
+4. Keep the API key only in the client's `environment`/`env` block or system environment variables; never commit it to git.
 
-- `grok-search` MCP 服务器提供的 `search_by_grok` 工具（部分客户端中名称带前缀，例如 `mcp__grok-search__search_by_grok`）；安装与配置方式见上方[前置条件](#前置条件)。
-- 该工具不可用时，skill 会停止并告知无法执行工作流，不会静默替换为其他搜索机制。
+## Dependencies
 
-## 核心工作流
+- The `search_by_grok` tool provided by the `grok-search` MCP server (in some clients the tool name carries a prefix, e.g. `mcp__grok-search__search_by_grok`); for installation and configuration, see [Prerequisites](#prerequisites) above.
+- If the tool is unavailable, the skill stops and reports that it cannot execute the workflow; it will not silently substitute another search mechanism.
 
-1. **界定调研范围**：确定主题、时间边界、地域范围与输出要求；将请求拆分为两个以上互不重叠、可独立回答的子问题；简单的单一查询无需拆分。
-2. **并行执行搜索**：在单条消息中一次性发出全部 `search_by_grok` 调用（每轮 2-4 个）；每条查询自成一体，包含主题、具体角度与时间范围；查询中不混入输出语言或报告格式要求；失败或结果单薄的查询换措辞重试一次，仍缺失的如实报告，不编造。
-3. **汇总与核验**：合并重叠发现、去除重复主张；区分已核实事实、有出处的立场、分析与未解决主张；优先引用官方等一手来源；来源间冲突时明确指出而非平均处理；分歧点至多追加一次针对性搜索。
-4. **输出报告**：默认用中文回复，包含执行摘要、按调研角度或时间线分节的正文、信息截止日期与不确定性说明、关键主张的内联来源链接。
+## Core Workflow
 
-## 输出特点
+1. **Scope the research**: define the topic, time boundaries, geographic scope, and output requirements; split the request into two or more non-overlapping, independently answerable sub-questions; a simple single query does not need splitting.
+2. **Run searches in parallel**: issue all `search_by_grok` calls in a single message (2-4 per round); each query must be self-contained, including the topic, the specific angle, and the time range; do not mix output-language or report-format requirements into queries; retry a failed or thin query once with rephrasing, and report anything still missing honestly instead of fabricating.
+3. **Synthesize and verify**: merge overlapping findings and deduplicate claims; distinguish verified facts, sourced positions, analysis, and unresolved claims; prefer primary sources such as official ones; when sources conflict, call out the conflict explicitly rather than averaging it; add at most one additional targeted search for points of disagreement.
+4. **Produce the report**: reply in Chinese by default, including an executive summary, a body organized by research angle or timeline, the information cutoff date with uncertainty notes, and inline source links for key claims.
 
-- 简明、有来源支撑的中文报告，关键主张保留来源 URL，必要时附紧凑的来源列表。
-- 明确区分事实、立场、分析与未解决的主张，不把模型推测当作已确立的事实。
-- 说明信息截止日期与来源冲突；仅在有助于说明调研方法时提及并行搜索次数。
-- 结果篇幅与请求相称，不包含原始工具输出或无关实现细节。
+## Output Characteristics
+
+- A concise, source-backed Chinese report with source URLs preserved for key claims, plus a compact source list when needed.
+- Clearly distinguishes facts, positions, analysis, and unresolved claims; never presents model speculation as established fact.
+- States the information cutoff date and source conflicts; mentions the number of parallel searches only when it helps explain the research method.
+- Report length is proportional to the request; no raw tool output or irrelevant implementation details.
