@@ -17,9 +17,18 @@
 - 用户希望对比一个问题的多个方面。
 - 用户明确要求以多次并行搜索的方式进行调研。
 
+## 前置条件
+
+使用本 skill 前，需要先安装并配置 [grok-search-mcp](https://github.com/lililibonaba-stack/grok-search-mcp) —— 即提供 `search_by_grok` 工具的 MCP 服务器：
+
+1. 安装 [uv](https://docs.astral.sh/uv/) 并确认其在 PATH 中可用（用 `uv --version` 验证）。
+2. 获取 [cheapapis.net](https://cheapapis.net) 的 API key，创建方式见该仓库的 [get_apikey_tutorial.md](https://github.com/lililibonaba-stack/grok-search-mcp/blob/main/get_apikey_tutorial.md)。
+3. 克隆或下载 grok-search-mcp 仓库，在你的 MCP 客户端中注册名为 `grok-search` 的本地服务器：命令为 `uv run --with fastmcp==4.0.2 --with httpx==0.28.1 python <grok_search.py 的完整路径>`，并在 `environment`/`env` 中设置 `CHEAPAPIS_API_KEY`。Kilo、Claude Desktop、Cursor 的完整配置示例见其 [README](https://github.com/lililibonaba-stack/grok-search-mcp#configuration)。
+4. API key 只放在客户端的 `environment`/`env` 块或系统环境变量中，不要提交到 git。
+
 ## 依赖
 
-- `grok-search` MCP 服务器提供的 `search_by_grok` 工具（部分客户端中名称带前缀，例如 `mcp__grok-search__search_by_grok`）。
+- `grok-search` MCP 服务器提供的 `search_by_grok` 工具（部分客户端中名称带前缀，例如 `mcp__grok-search__search_by_grok`）；安装与配置方式见上方[前置条件](#前置条件)。
 - 该工具不可用时，skill 会停止并告知无法执行工作流，不会静默替换为其他搜索机制。
 
 ## 核心工作流
