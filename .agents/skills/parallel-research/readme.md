@@ -27,15 +27,15 @@
 
 模型排名不分先后，序号仅用于引用列表项。
 
-| 序号 | 模型 | 模型厂商 | 免费 Provider | 每分钟限制 | 稳定性 | 参数量 | 上下文 | 擅长方向 | 官方发布日期 | 验证日期 |
+| 序号 | 模型 | 模型厂商 | 访问链接 | 每分钟限制 | 稳定性 | 参数量 | 上下文 | 擅长方向 | 官方发布日期 | 验证日期 |
 |---:|---|---|---|---:|---:|---:|---|---:|---|---|
 | 1 | Nemotron 3 Ultra | NVIDIA | [OpenRouter](https://openrouter.ai/nvidia/nemotron-3-ultra-550b-a55b:free) | 20 RPM；50/1000 RPD | 8/10 | 55B active / 550B total，MoE | 1M（官方）；OpenRouter 当前页 262K | Agent 编排、长文本、复杂推理 | 2026-06-04 | 2026-09-08 |
 | 2 | Laguna S 2.1 | Poolside | [OpenRouter](https://openrouter.ai/poolside/laguna-s-2.1:free) | 20 RPM；50/1000 RPD | 8/10 | 8B active / 118B total，MoE | 262K（免费端点） | 软件工程、代码 Agent、长流程任务 | 2026-07-21 | 2026-09-08 |
 | 3 | Nemotron 3.5 Lightning | NVIDIA | [OpenRouter](https://openrouter.ai/nvidia/nemotron-3.5-lightning:free) | 20 RPM；50/1000 RPD | 8/10 | 约 3-3.6B active / 约 30-31.6B total，MoE | 1M | 高频轻量任务、代码、工具调用 | 2026-08-11 | 2026-09-08 |
 | 4 | Ling 3.0 Flash Fin | inclusionAI | [OpenRouter](https://openrouter.ai/inclusionai/ling-3.0-flash-fin:free) | 20 RPM；50/1000 RPD | 7/10 | 约 5.1B active / 124B total，MoE | 262K | 金融研究、财报分析、规划、推理、代码 | 2026-08-27 | 2026-09-08 |
 | 5 | DeepSeek V4 Pro | DeepSeek | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 约 49B active / 1.6T total，MoE | 1M | 通用推理、代码、数学、长文本 | 2026-08-12/13（GA） | 2026-09-08 |
-| 6 | GLM-5.3 Flash | 智谱 AI（Z.ai） | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 18B active / 320B total，MoE | 1M | 代码 Agent、多模态、通用问答、代码 | 2026-08-26 | 2026-09-08 |
-| 7 | Kimi K3 | Moonshot AI | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 7/10 | 约 104B active / 2.8T total，MoE | 1M | 中文、长文本、推理、Agent | 2026-07-16（服务）；2026-07-27（权重） | 2026-09-08 |
+| 6 | GLM-5.3 Flash | 智谱 AI（Z.ai） | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 18B active / 320B total，MoE | 1M | 代码 Agent、多模态、通用问答、后端代码 | 2026-08-26 | 2026-09-08 |
+| 7 | Kimi K3 | Moonshot AI | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 7/10 | 约 104B active / 2.8T total，MoE | 1M | web前端、长文本、推理、Agent、写作 | 2026-07-16（服务）；2026-07-27（权重） | 2026-09-08 |
 | 8 | MiniMax M3 | MiniMax | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 约 23B active / 428B total，MoE | 1M | 中文、通用任务、代码、Agent | 2026-06-01 | 2026-09-08 |
 | 9 | Muse Glimmer 30B | Meta Superintelligence Labs | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 7/10 | 约 30B，Dense | 128K-131K | 通用任务、创作、代码、工具调用 | 2026-08-10 | 2026-09-08 |
 | 10 | GPT-OSS-20B | OpenAI | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 约 3.6B active / 20.9-21B total，MoE | 128K-131K | 通用推理、代码辅助、工具调用 | 2025-08-05 | 2026-09-08 |
@@ -164,37 +164,4 @@ p95_latency
 - Provider：负责免费调用入口
 - 本项目：负责整理、测试和比较
 
-## 贡献
 
-欢迎提交新免费模型、免费 Provider、官方发布日期、参数量、上下文信息、RPM、RPD、并发限制、稳定性测试结果，以及模型下线或免费状态变化。
-
-提交信息时请尽量包含：
-
-```text
-模型名称：
-模型 ID：
-模型厂商：
-免费 Provider：
-官方发布日期：
-参数量：
-上下文长度：
-每分钟调用限制：
-每日调用限制：
-测试时间：
-测试结果：
-信息来源：
-```
-
-## 免责声明
-
-本项目只负责信息整理和模型推荐，不提供模型服务。
-
-- 免费状态可能随时变化
-- Provider 可能修改调用限制
-- 模型信息可能存在延迟
-- 测试结果不代表 Provider 的服务承诺
-- 不建议将免费模型直接用于关键生产业务
-- 使用 API 前请确认 Provider 的隐私政策和数据处理方式
-- 请通过官方渠道获取 API Key，谨防仿冒网站和钓鱼链接
-
-最后更新时间：2026-09-08
