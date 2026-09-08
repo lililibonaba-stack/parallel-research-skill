@@ -14,18 +14,6 @@
 
 > 免费状态、调用限制和服务稳定性可能随时变化。使用前请以对应 Provider 的最新页面和官方文档为准。
 
-## 快速推荐
-
-| 使用场景 | 当前推荐 | 推荐理由 |
-|---|---|---|
-| 长上下文和 Agent 编排 | NVIDIA Nemotron 3 Ultra | 1M 上下文，适合长流程 Agent 和复杂任务 |
-| 软件工程和代码 Agent | Poolside Laguna S 2.1 | 面向软件工程，118B 总参数，262K 上下文 |
-| 高频轻量任务 | NVIDIA Nemotron 3.5 Lightning | 激活参数较少，适合速度优先的任务 |
-| 金融分析 | inclusionAI Ling 3.0 Flash Fin | 针对金融任务和长周期规划进行优化 |
-| 通用推理 | DeepSeek V4 Pro | 适合通用问答、推理和代码任务 |
-| 中文任务 | GLM-5.3 Flash | 中文能力和通用任务覆盖较好 |
-| 轻量级任务 | GPT-OSS-20B | 参数规模适中，适合一般推理和代码辅助 |
-
 ## 收录列表
 
 以下权重为本项目整理收录时的评价维度说明，不代表统一基准测试结果。
@@ -46,7 +34,7 @@
 | 3 | Nemotron 3.5 Lightning | NVIDIA | [OpenRouter](https://openrouter.ai/nvidia/nemotron-3.5-lightning:free) | 20 RPM；50/1000 RPD | 8/10 | 约 3-3.6B active / 约 30-31.6B total，MoE | 1M | 高频轻量任务、代码、工具调用 | 2026-08-11 | 2026-09-08 |
 | 4 | Ling 3.0 Flash Fin | inclusionAI | [OpenRouter](https://openrouter.ai/inclusionai/ling-3.0-flash-fin:free) | 20 RPM；50/1000 RPD | 7/10 | 约 5.1B active / 124B total，MoE | 262K | 金融研究、财报分析、规划、推理、代码 | 2026-08-27 | 2026-09-08 |
 | 5 | DeepSeek V4 Pro | DeepSeek | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 约 49B active / 1.6T total，MoE | 1M | 通用推理、代码、数学、长文本 | 2026-08-12/13（GA） | 2026-09-08 |
-| 6 | GLM-5.3 Flash | 智谱 AI（Z.ai） | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 18B active / 320B total，MoE | 1M | 中文、多模态、通用问答、代码 | 2026-08-26 | 2026-09-08 |
+| 6 | GLM-5.3 Flash | 智谱 AI（Z.ai） | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 18B active / 320B total，MoE | 1M | 代码 Agent、多模态、通用问答、代码 | 2026-08-26 | 2026-09-08 |
 | 7 | Kimi K3 | Moonshot AI | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 7/10 | 约 104B active / 2.8T total，MoE | 1M | 中文、长文本、推理、Agent | 2026-07-16（服务）；2026-07-27（权重） | 2026-09-08 |
 | 8 | MiniMax M3 | MiniMax | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 8/10 | 约 23B active / 428B total，MoE | 1M | 中文、通用任务、代码、Agent | 2026-06-01 | 2026-09-08 |
 | 9 | Muse Glimmer 30B | Meta Superintelligence Labs | [cheapapis](https://cheapapis.net/pricing) | 20 RPM | 7/10 | 约 30B，Dense | 128K-131K | 通用任务、创作、代码、工具调用 | 2026-08-10 | 2026-09-08 |
